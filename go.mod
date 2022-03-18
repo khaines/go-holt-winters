@@ -1,3 +1,3 @@
-module github.com/khaines/go-holt-winters
+module github.com/khaines/holtwinters
 
 go 1.17
