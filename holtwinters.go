@@ -1,7 +1,14 @@
 package holtwinters
 
+import "errors"
+
 // Creates an array of forcasted data points based on the given time series
-func TripleExponentialSmoothing(series []float64, alpha, beta, gamma float64, seasonLength, nPredictions int) []float64 {
+func TripleExponentialSmoothing(series []float64, alpha, beta, gamma float64, seasonLength, nPredictions int) ([]float64, error) {
+
+	if len(series) < seasonLength {
+		return nil, errors.New("series must be at least as long as the season length")
+	}
+
 	// initialize the predicted series
 	predictedValues := make([]float64, 0, len(series)+nPredictions)
 
@@ -27,7 +34,7 @@ func TripleExponentialSmoothing(series []float64, alpha, beta, gamma float64, se
 
 	}
 
-	return predictedValues
+	return predictedValues, nil
 }
 
 // Calculates the initial trend for the holt/winters forcast
